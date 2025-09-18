@@ -54,14 +54,14 @@ Body field: `url`
 - Success:
   ```json
   {
-    original_url: "https://freeCodeCamp.org",
-    short_url: 1,
+    "original_url": "https://freeCodeCamp.org",
+    "short_url": 1,
   }
   ```
 - Failed: If your url is invalid
   ```json
   {
-    error: "invalid url",
+    "error": "invalid url",
   }
   ```
 
