@@ -33,6 +33,9 @@ cd url-shortener-microservice
 # Install dependencies
 npm install 
 
+# Create data.json to store short URLs
+touch data.json
+
 # Start server
 npm run start
 
