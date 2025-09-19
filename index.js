@@ -78,6 +78,35 @@ app.post('/api/shorturl', async (req, res) => {
   }
 });
 
+app.get("/api/shorturl/:short_url", async (req, res) => {
+  try {
+    const short_url = req.params.short_url;
+
+    // Check short url (numeric format)
+    const numberRegex = /^\d+$/;
+    if (!numberRegex.test(short_url)) {
+      throw new Error("invalid url");
+    }
+
+    // Get url list and find original url by short url
+    let urlList = await fs.readFile(path.join(__dirname, "data.json"), "utf-8");
+    if (!urlList) {
+      throw new Error("invalid url");
+    } else {
+      urlList = JSON.parse(urlList);
+
+      const url = urlList.find((url) => url.short_url === Number(short_url));
+      if (url) {
+        return res.redirect(url.original_url);
+      } else {
+        throw new Error("invalid url");
+      }
+    }
+  } catch (error) {
+    return res.json({ error: error.message });
+  }
+});
+
 // Start sever
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
